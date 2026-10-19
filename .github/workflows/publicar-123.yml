@@ -1,0 +1,20 @@
+name: Publicação única 123 no X
+on:
+  push:
+    paths:
+      - ".github/publicar-123.trigger"
+
+permissions:
+  contents: read
+
+jobs:
+  publicar:
+    if: github.repository == 'joserobertoaraujofilho-art/robox'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publicar 123 agora no X via Buffer
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: python3 publicar_123.py
