@@ -3,14 +3,19 @@
   "x_account": "eumzemesmo",
   "timezone": "America/Sao_Paulo",
   "mode": "hybrid",
-  "enabled": false,
+  "enabled": true,
+  "generator": "ChatGPT scheduled tasks; no external model API",
+  "transport": "GitHub commit -> push workflow -> Buffer",
   "slots": [
-    {"time": "08:00", "category": "atemporal", "publication": "automatic_after_activation"},
-    {"time": "13:00", "category": "noticia", "publication": "draft_requires_approval"},
-    {"time": "18:00", "category": "atemporal_ou_familia", "publication": "automatic_after_activation"}
+    {"time": "08:00", "category": "atemporal", "publication": "automatic"},
+    {"time": "13:00", "category": "noticia", "publication": "human_approval_in_chatgpt"},
+    {"time": "18:00", "category": "atemporal_ou_familia", "publication": "automatic"}
   ],
-  "uncertain_classification": "draft_requires_approval",
-  "duplicate_protection": true,
+  "automatic_outbox": "outbox/atemporais",
+  "human_approved_outbox": "outbox/aprovados",
+  "receipts": "deliveries",
+  "uncertain_classification": "draft_in_chatgpt_requires_approval",
+  "duplicate_protection": "durable reservation before Buffer mutation; unresolved sends are not retried automatically",
   "publication_requires_generated_content_validation": true,
-  "notes": "Configuração registrada, não é um agendamento ativo. Notícias não recebem aprovação automática."
+  "notes": "A fila por commit está habilitada. O gerador deve escrever só posts atemporais; notícias não entram sem aprovação humana específica. Agendamento não garante publicação no segundo exato. A primeira execução agendada da nova ligação ainda precisa de confirmação por registro real."
 }
