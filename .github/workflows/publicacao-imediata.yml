@@ -16,5 +16,5 @@ jobs:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           BUFFER_POST_MODE: shareNow
           BUFFER_CONFIRM_PUBLISH: SIM
-          BUFFER_POST_TEXT: "Teste de automacao 456"
+          BUFFER_POST_TEXT: "Antigamente, uma pessoa que não fazia nada estava descansando. Hoje está praticando autocuidado. A principal evolução foi conseguir cobrar por isso."
         run: python3 buffer_draft_test.py
