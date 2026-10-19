@@ -1,0 +1,11 @@
+{
+  "id": "teste-autocuidado-20261019",
+  "account": "eumzemesmo",
+  "category": "atemporal",
+  "text": "Antigamente, uma pessoa que não fazia nada estava descansando. Hoje está praticando autocuidado. A principal evolução foi conseguir cobrar por isso.",
+  "approval": {
+    "by": "user_in_chatgpt",
+    "reference": "Nesta conversa de 19/10/2026 o usuário respondeu 'sim' à pergunta 'Quer que usemos esse texto exato para o próximo teste de publicação?', e pediu a remoção dos cliques manuais.",
+    "text_sha256": "78a91c0c79b00e1b915c14b60be036f9b186c0e5b51b2fee3eef4e4ee221c71c"
+  }
+}
