@@ -1,0 +1,12 @@
+# Never commit credentials, local sessions or raw model logs.
+.codex/
+**/auth.json
+.env
+.env.*
+*.pem
+__pycache__/
+*.pyc
+node_modules/
+codex-result.json
+codex-events.jsonl
+codex-stderr.log
