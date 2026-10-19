@@ -50,25 +50,18 @@
 
 > Homem que faz vira prova. Homem que fala vira podcast.
 
-## Operação desejada, a validar
-- 8h: atemporal/filosófico/ácido.
-- 13h: notícia atual verificada.
-- 18h: sarro da modernidade ou família.
-- 21 posts/semana é o objetivo do dossiê, não uma agenda já ativada.
-- Histórico: conta entrou em revisão em 24/04/2026 após aumento abrupto na frequência.
-- Regra original: gerar em lotes seg/qua/sex 07:10 e notícia diária 07:36; revisão humana obrigatória antes de publicar.
-- A conexão atual GitHub -> Buffer -> X foi testada, mas NÃO autoriza ativar publicação diária sem decisão explícita sobre a revisão.
-- Conservar textos e origens, evitar republicar exemplos e manter variedade temática.
+## Operação vigente em 19/10/2026: modo híbrido no ChatGPT
+- O usuário decidiu manter o projeto e a IA no ChatGPT. Não chamar Gemini ou uma API de geração externa.
+- Slots editoriais: 8h atemporal; 13h notícia com aprovação; 18h atemporal/família/modernidade.
+- Tarefa do ChatGPT configurada para 8h e 18h, a partir de 20/10/2026, escreve UM texto novo em outbox/atemporais/AAAA-MM-DD-HHMM.json. O commit dispara entrega-chatgpt.yml por evento push; não usar o botão Run workflow.
+- A tarefa de notícia roda 07:36, como no plano original, e só apresenta proposta e fontes aqui no ChatGPT. Não publica, não aprova a si mesma e não escreve na fila de publicação.
+- Depois de aprovação explícita do texto exato pelo usuário nesta conversa, a conversa interativa pode criar um arquivo em outbox/aprovados, com referência à aprovação e SHA256 do texto. O gerador agendado não tem autorização para preencher essa pasta.
+- Na dúvida sobre ser notícia ou depender de fatos atuais, entregar rascunho para aprovação e não publicar.
+- O projeto anterior gerava atemporais em lotes seg/qua/sex. A implementação atual gera por slot; não requer computador ligado.
+- As regras essenciais estão também dentro das instruções das tarefas; não presumir que uma tarefa acessa anexos do projeto.
+- Uma reserva persistente em deliveries/ID.json impede reenvio cego do mesmo item. Timeout ou resposta ambígua exige conferir o envio; não remover a reserva automaticamente.
+- buffer_accepted confirma aceitação pelo Buffer, não é prova independente da visibilidade no X.
+- A entrega ChatGPT interativo -> commit -> Actions -> Buffer foi comprovada em 19/10/2026, execução 39323083035. A primeira execução da ligação iniciada pelo relógio do ChatGPT continua aguardando comprovação por registro real.
+- Histórico relatado no dossiê: a conta passou por revisão em abril/2026. Nenhuma cadência ou integração garante ausência de restrições futuras.
 
-Fonte: dossie-completo-seu-ze.md, fornecido pelo usuário em 19/10/2026.
-
-
-## Decisão operacional confirmada em 19/10/2026: modo híbrido
-- Posts **atemporais** de 8h e posts **variáveis de 18h** (família / sarro da modernidade): elegíveis à publicação automática **após** implementação, teste da IA e ativação deliberada do agendamento.
-- Posts **de notícias das 13h**: somente rascunhos até aprovação humana explícita. Jamais usar `shareNow` para notícia durante geração.
-- Se o classificador tiver dúvida se depende de notícia factual ou atual, tratar como **notícia** e exigir aprovação.
-- Sem publicações repetidas; validar voz, limites e tamanho antes de envio.
-- Registrar data, texto, canal, status e ID do Buffer para evitar duplicidade.
-- A frequência ideal de 21 posts/semana é objetivo futuro, não permissão para ativar tudo imediatamente.
-- Por histórico de revisão da conta, iniciar com cadência prudente e monitorar eventuais restrições.
-- Ainda não há geração diária com IA ativada nem aprovação automática de notícias.
+Fonte editorial: dossie-completo-seu-ze.md, fornecido pelo usuário em 19/10/2026. Operação atual conforme decisões desta conversa e config/operacao.json.
