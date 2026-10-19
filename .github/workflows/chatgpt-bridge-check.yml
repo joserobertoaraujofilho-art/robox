@@ -1,0 +1,59 @@
+name: Validar ponte automatica ChatGPT
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'bridge-test/*.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chatgpt-bridge-check-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Confirmar recebimento sem publicar
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import pathlib
+          import subprocess
+          files = subprocess.check_output(
+              ['git', 'diff', '--name-only', '--diff-filter=A', 'HEAD^', 'HEAD', '--', 'bridge-test/'],
+              text=True,
+          ).splitlines()
+          assert files, 'Nenhum arquivo novo de teste neste commit.'
+          for name in files:
+              path = pathlib.Path(name)
+              assert path.parent == pathlib.Path('bridge-test') and path.suffix == '.json'
+              assert not path.is_symlink()
+              data = json.loads(path.read_text(encoding='utf-8'))
+              assert data.get('mode') == 'dry_run', 'Este workflow aceita somente teste sem publicacao.'
+              assert data.get('probe_id') == path.stem
+              assert data.get('source') in ('scheduled_chatgpt', 'interactive_chatgpt')
+              assert isinstance(data.get('text'), str) and 1 <= len(data['text']) <= 280
+              receipt = {
+                  'result': 'CHATGPT_BRIDGE_OK',
+                  'probe_id': data['probe_id'],
+                  'source': data['source'],
+                  'text': data['text'],
+                  'commit': os.environ['GITHUB_SHA'],
+                  'run_id': os.environ['GITHUB_RUN_ID'],
+                  'event': os.environ['GITHUB_EVENT_NAME'],
+                  'published_to_x': False,
+              }
+              print(json.dumps(receipt, ensure_ascii=False))
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+                  summary.write('## Ponte ChatGPT recebida\n\n```json\n' + json.dumps(receipt, ensure_ascii=False, indent=2) + '\n```\n')
+          PY
