@@ -61,3 +61,14 @@
 - Conservar textos e origens, evitar republicar exemplos e manter variedade temática.
 
 Fonte: dossie-completo-seu-ze.md, fornecido pelo usuário em 19/10/2026.
+
+
+## Decisão operacional confirmada em 19/10/2026: modo híbrido
+- Posts **atemporais** de 8h e posts **variáveis de 18h** (família / sarro da modernidade): elegíveis à publicação automática **após** implementação, teste da IA e ativação deliberada do agendamento.
+- Posts **de notícias das 13h**: somente rascunhos até aprovação humana explícita. Jamais usar `shareNow` para notícia durante geração.
+- Se o classificador tiver dúvida se depende de notícia factual ou atual, tratar como **notícia** e exigir aprovação.
+- Sem publicações repetidas; validar voz, limites e tamanho antes de envio.
+- Registrar data, texto, canal, status e ID do Buffer para evitar duplicidade.
+- A frequência ideal de 21 posts/semana é objetivo futuro, não permissão para ativar tudo imediatamente.
+- Por histórico de revisão da conta, iniciar com cadência prudente e monitorar eventuais restrições.
+- Ainda não há geração diária com IA ativada nem aprovação automática de notícias.
