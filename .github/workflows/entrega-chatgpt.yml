@@ -1,0 +1,32 @@
+name: Entregar posts do ChatGPT
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'outbox/atemporais/*.json'
+      - 'outbox/aprovados/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: robox-delivery
+  cancel-in-progress: false
+
+jobs:
+  entregar:
+    if: github.repository == 'joserobertoaraujofilho-art/robox'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validar e entregar sem repetir tentativas ambíguas
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: python3 scripts/dispatch_outbox.py
