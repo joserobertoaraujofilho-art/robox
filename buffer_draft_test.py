@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Teste seguro: cria somente um rascunho no Buffer, nunca publica."""
+"""Integração Buffer: rascunho por padrão; publicação só sob comando explícito."""
 import json
 import os
 import sys
@@ -42,7 +42,12 @@ if len(candidates) != 1:
 
 channel = candidates[0]
 print("Canal encontrado:", channel["name"])
-text = "Teste técnico de integração. Este conteúdo é somente um RASCUNHO e não será publicado."
+mode = os.getenv("BUFFER_POST_MODE", "draft")
+if mode not in ("draft", "shareNow"):
+    sys.exit("Modo inválido.")
+text = os.getenv("BUFFER_POST_TEXT", "Teste técnico de integração. Este conteúdo é somente um RASCUNHO e não será publicado.")
+if mode == "shareNow" and not os.getenv("BUFFER_CONFIRM_PUBLISH") == "SIM":
+    sys.exit("Publicação não autorizada nesta execução.")
 result = gql("""mutation ($input: CreatePostInput!) {
   createPost(input: $input) {
     ... on PostActionSuccess { post { id text } }
@@ -50,10 +55,10 @@ result = gql("""mutation ($input: CreatePostInput!) {
   }
 }""", {"input": {
     "text": text, "channelId": channel["id"],
-    "schedulingType": "automatic", "mode": "addToQueue", "saveToDraft": True
+    "schedulingType": "automatic", "mode": "shareNow" if mode == "shareNow" else "addToQueue", "saveToDraft": mode == "draft"
 }})
 created = result["createPost"]
 if not created.get("post"):
     sys.exit("Buffer recusou criar rascunho: " + created.get("message", "erro desconhecido"))
-print("SUCESSO: rascunho criado no Buffer, não publicado.")
+print("SUCESSO: resposta do Buffer para modo", mode, "(confira postagem no X)")
 print("ID:", created["post"]["id"])
