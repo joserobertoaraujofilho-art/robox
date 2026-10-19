@@ -1,0 +1,16 @@
+{
+  "persona": "Seu Zé",
+  "x_account": "eumzemesmo",
+  "timezone": "America/Sao_Paulo",
+  "mode": "hybrid",
+  "enabled": false,
+  "slots": [
+    {"time": "08:00", "category": "atemporal", "publication": "automatic_after_activation"},
+    {"time": "13:00", "category": "noticia", "publication": "draft_requires_approval"},
+    {"time": "18:00", "category": "atemporal_ou_familia", "publication": "automatic_after_activation"}
+  ],
+  "uncertain_classification": "draft_requires_approval",
+  "duplicate_protection": true,
+  "publication_requires_generated_content_validation": true,
+  "notes": "Configuração registrada, não é um agendamento ativo. Notícias não recebem aprovação automática."
+}
