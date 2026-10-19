@@ -1,0 +1,10 @@
+{
+  "id": "teste-autocuidado-20261019",
+  "state": "claimed",
+  "text_sha256": "78a91c0c79b00e1b915c14b60be036f9b186c0e5b51b2fee3eef4e4ee221c71c",
+  "account": "eumzemesmo",
+  "channel_id": "6ad6778a778b240e2f5de788",
+  "source_commit": "271c1ed2a66e37131c1715741426c8021e2b94ad",
+  "run_id": "39323083035",
+  "created_at": "2026-10-19T17:53:42.003015-03:00"
+}
