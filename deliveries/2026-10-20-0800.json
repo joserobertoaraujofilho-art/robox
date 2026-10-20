@@ -1,10 +1,12 @@
 {
   "id": "2026-10-20-0800",
-  "state": "claimed",
+  "state": "buffer_accepted",
   "text_sha256": "a780e80eba69a1cb11cad3acde52eb1a5de85847c7e49668910443568ad30b53",
   "account": "eumzemesmo",
   "channel_id": "6ad6778a778b240e2f5de788",
   "source_commit": "4bc4d5863f07819a011e9c89fc312eb9cc1de9c8",
   "run_id": "39412453832",
-  "created_at": "2026-10-20T08:05:19.318744-03:00"
+  "created_at": "2026-10-20T08:05:19.318744-03:00",
+  "buffer_post_id": "6ad74af19ce09c10b6bd8ce9",
+  "updated_at": "2026-10-20T08:05:22.355207-03:00"
 }
